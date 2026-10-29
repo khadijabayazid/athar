@@ -96,6 +96,28 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 .pulse .fam-score,.pulse.tile b{animation:pulse .9s}
 @keyframes pulse{40%{transform:scale(1.18)}}
 
+
+.arow[data-on]{border-inline-start:6px solid var(--c,var(--lime))}
+.arow.miss[data-on]{background:transparent;border-style:dashed;color:var(--mute)}
+.arow.miss[data-on] .n,.arow.miss[data-on] .s{color:var(--mute)}
+.arow:disabled:not([data-on]){opacity:.7}
+.card.on.miss{background:transparent;border:2px dashed var(--line);color:var(--mute)}
+.card.on.miss .cn{background:transparent;color:var(--mute)}
+.card.on.miss .cp{background:transparent;color:var(--mute)}
+.fstates{display:flex;flex-wrap:wrap;gap:8px}
+.fs{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:.2rem .6rem}
+.fs i{width:.6rem;height:.6rem;border-radius:50%;background:var(--c)}
+.fs.now{color:var(--paper);border-color:var(--c)}
+.fs.out{color:var(--bad);border-color:var(--bad)}
+.tile .tg svg{vertical-align:-.15em}
+.tile.struck .tg{color:var(--bad)}
+.tile.struck{opacity:.9}
+
+
+.card.on .ct{align-self:center}
+.arow[data-on]:disabled{opacity:1}
+.arow.miss[data-on]:disabled{opacity:.7;border-inline-start-color:var(--line)}
+
 /* editor / settings */
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:grid;gap:14px;min-width:0}
 .panel h2{margin:0;font:700 1.2rem var(--f-display)}
@@ -138,7 +160,7 @@ code.k{background:var(--bg);border:1px solid var(--line);padding:.05rem .4rem;bo
 .card.on{background:var(--paper);border-color:var(--paper);color:var(--ink);display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:.6em;align-items:center;place-items:unset;padding:0 .6em 0 0;font:700 clamp(1rem,min(2.6vw,4.4vh),2.2rem) var(--f-display)}
 .card.on .cn{background:var(--ink);color:var(--lime);height:100%;display:grid;place-items:center;font-size:.8em}
 .card.on .ct{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card.on .cp{background:var(--lime);height:100%;min-width:2.4em;padding:0 .6em;display:grid;place-items:center;font-variant-numeric:tabular-nums;margin-right:-.6em}
+.card.on .cp{background:var(--c,var(--lime));height:100%;min-width:2.4em;padding:0 .6em;display:grid;place-items:center;font-variant-numeric:tabular-nums;margin-right:-.6em}
 .card.fresh{animation:flip .55s cubic-bezier(.2,.8,.2,1)}
 @keyframes flip{from{transform:rotateX(90deg);opacity:.2}to{transform:none;opacity:1}}
 .status{text-align:center;font:600 clamp(.9rem,2.6vh,1.35rem) var(--f-display);min-height:1.5em;color:var(--lime)}
@@ -195,54 +217,55 @@ code.k{background:var(--bg);border:1px solid var(--line);padding:.05rem .4rem;bo
 <script>
 const LOGO="data:image/jpeg;base64,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";
 //#CORE-START
-const KEY='feud-mashroo-v1';
-const GF=['round','phase','control','strikes','revealed','bank','stealQueue','winner','awarded'];
+const KEY='feud-mashroo-v2';
+const GF=['round','phase','turn','struck','revealed','owner','missed','rp'];
 const DEFAULT_Q=[
- {text:'اذكر لغة برمجة يبدأ بها المبتدئون',mult:1,answers:[{t:'بايثون',p:36},{t:'جافاسكربت',p:24},{t:'جافا',p:15},{t:'++C',p:11},{t:'C',p:8},{t:'PHP',p:6}]},
- {text:'اذكر أول ما تفعله عندما يتعطل الحاسوب',mult:1,answers:[{t:'إعادة التشغيل',p:41},{t:'البحث في الإنترنت عن الحل',p:21},{t:'فحص الكابلات والتوصيلات',p:14},{t:'فحص الفيروسات',p:11},{t:'الاتصال بالدعم الفني',p:8},{t:'تحديث البرامج والتعريفات',p:5}]},
- {text:'اذكر أداة لا يستغني عنها المبرمج',mult:2,answers:[{t:'محرر الأكواد',p:34},{t:'المتصفح',p:22},{t:'Git / GitHub',p:18},{t:'الطرفية',p:14},{t:'مواقع الأسئلة والأجوبة',p:12}]},
- {text:'اذكر سبباً يجعل الموقع بطيئاً',mult:2,answers:[{t:'صور كبيرة غير مضغوطة',p:30},{t:'ضعف الإنترنت',p:24},{t:'استضافة ضعيفة',p:20},{t:'كود غير محسّن',p:14},{t:'كثرة الإضافات والإعلانات',p:12}]},
- {text:'اذكر طريقة لحماية حساب إلكتروني',mult:3,answers:[{t:'كلمة مرور قوية',p:38},{t:'التحقق بخطوتين',p:28},{t:'عدم مشاركتها مع أحد',p:14},{t:'مدير كلمات المرور',p:12},{t:'تغييرها دورياً',p:8}]}
+ {text:'أكتر شي بطلبه منك المجتمع بما إنك طالب معلوماتية، وهو ما دخله بالمعلوماتية؟',mult:1,answers:[{t:'نزّلي الواتساب',p:50},{t:'فرمتلي الموبايل',p:30},{t:'هكرلي حساب رفيقي',p:35},{t:'صمّملي لوجو',p:25},{t:'هكرلي شبكة الجيران',p:40},{t:'صلّحلي الموبايل',p:10}]},
+ {text:'أكتر شي بخلي طالب المعلوماتية ينبسط فيه؟',mult:1,answers:[{t:'ياخد 60',p:50},{t:'تجي المادة دورات',p:40},{t:'يشتغل الكود من أول مرة',p:30},{t:'تنحذف محاضرة من الامتحان',p:35},{t:'يعملوا مقصف',p:25},{t:'يلاقي شغل باختصاصه',p:10}]},
+ {text:'لما بتأخر الطالب على المحاضرة، شو بيتحجّج؟',mult:1,answers:[{t:'ما في سرافيس',p:50},{t:'الطرقات زحمة',p:35},{t:'موبايلي طفي',p:30},{t:'عم بستنى رفيقي',p:20},{t:'غيّرت المنبّه وما حسّيت',p:40},{t:'مغيّر التوقيت من صيفي لشتوي',p:10}]},
+ {text:'ليش ما عم تحضر عملي؟',mult:1,answers:[{t:'مات زوج خالتي',p:50},{t:'خربطت بالموعد',p:30},{t:'ما عم يحرموا حدا',p:35},{t:'ما عم بفهم، بسجّل دورة',p:25},{t:'رفقاتي ما نزلوا',p:40},{t:'عندي حضور وما عاد انحرم',p:10}]},
+ {text:'أكتر شي بيعاني منه طالب المعلوماتية وقت ليكتب كود؟',mult:1,answers:[{t:'ما في نت',p:50},{t:'بطارية فاضيانة',p:10},{t:'ما في كهرباء',p:40},{t:'ما عندي لابتوب',p:25},{t:'باقات غالية',p:30},{t:'النت بطيء',p:25}]},
+ {text:'شو هنّي مواد السنة الأولى، الفصل الثاني؟',mult:1,answers:[{t:'جبر خطي',p:50},{t:'تحليل 2',p:30},{t:'فيزياء 2',p:35},{t:'لغة 2 وعربي',p:10},{t:'برمجة 2',p:25},{t:'دورات كهربائية',p:40}]},
+ {text:'أكتر المصادر اللي بيدرسوا منها طلاب الهندسة المعلوماتية؟',mult:1,answers:[{t:'بلو بيتس',p:40},{t:'أسامة الزيرو',p:50},{t:'ملفات الدكتور',p:40},{t:'منصة يوديمي',p:30},{t:'أبو هدهود',p:10},{t:'يوتيوب',p:35}]},
+ {text:'شو الشي اللي ما بدك تشوفه قبل تسليم المشروع بيوم؟',mult:1,answers:[{t:'Error',p:50},{t:'شاشة زرقاء',p:40},{t:'تحديث إجباري',p:35},{t:'رسالة الملف تالف',p:25},{t:'اختفاء آخر نسخة من المشروع',p:30},{t:'تقاتلت مع فريق المشروع',p:10}]},
+ {text:'إذا الكود اشتغل من أول مرة، شو أول فكرة بتخطر ببال الطالب؟',mult:1,answers:[{t:'أكيد في شي غلط',p:50},{t:'يمكن نسيت أحفظ الملف',p:40},{t:'لازم ما ألمس شي',p:35},{t:'خليني غيّر شغلة صغيرة',p:30},{t:'يا رب يشتغل قدام الدكتور',p:25},{t:'أعمل Ctrl + S عالسريع',p:10}]},
+ {text:'شو الشي اللي بيختفي من حياة طالب المعلوماتية وقت اللي يسلّم المشروع؟',mult:1,answers:[{t:'النوم',p:50},{t:'الأكل',p:40},{t:'الحياة الاجتماعية',p:35},{t:'شحن اللابتوب',p:30},{t:'الشغف',p:25},{t:'القدرة على تذكّر آخر تعديل',p:10}]}
 ];
 function clone(o){return JSON.parse(JSON.stringify(o))}
-function resetRound(s){s.phase='ready';s.control=null;s.strikes=0;s.revealed=[];s.bank=0;s.stealQueue=[];s.winner=null;s.awarded=null}
+function resetRound(s){s.phase='ready';s.turn=null;s.struck=[false,false,false];s.revealed=[];s.owner={};s.missed=[];s.rp=[0,0,0]}
 function fresh(){
-  const s={rev:1,title:'تحدّي العائلات',sub:'الجولة التقنية',
+  const s={rev:1,title:'تحدّي العائلات',sub:'أسئلة تفاعلية لطلاب الهندسة المعلوماتية',
     families:[{name:'العائلة الأولى',score:0},{name:'العائلة الثانية',score:0},{name:'العائلة الثالثة',score:0}],
     questions:clone(DEFAULT_Q),round:0,fx:{id:0,kind:'',n:0}};
   resetRound(s);return s;
 }
-function mult(s){const q=s.questions[s.round];return q?q.mult:1}
-function bankOf(s){return s.bank*mult(s)}
-function others(c){return [(c+1)%3,(c+2)%3]}
 function setFx(s,kind,n){s.fx={id:((s.fx&&s.fx.id)||0)+1,kind:kind,n:n||0}}
 function snap(s){const o={scores:s.families.map(f=>f.score)};GF.forEach(k=>{o[k]=clone(s[k])});return o}
 function restore(s,o){s.families.forEach((f,i)=>{f.score=o.scores[i]});GF.forEach(k=>{s[k]=clone(o[k])})}
+function nextTurn(s){for(let d=1;d<=2;d++){const j=(s.turn+d)%3;if(!s.struck[j])return j}return null}
+function finish(s){s.phase='done';s.turn=null}
 const ACT={
-  start(s){if(s.phase==='ready')s.phase='faceoff'},
-  control(s,i){if(s.phase!=='faceoff')return;s.control=i;s.phase='play';s.strikes=0},
+  start(s,i){if(s.phase!=='ready')return;s.phase='play';s.turn=i},
   reveal(s,k){
-    const q=s.questions[s.round];if(!q||!q.answers[k]||s.revealed.indexOf(k)>-1)return;
-    const ph=s.phase;if(ph==='ready'||ph==='final')return;
-    s.revealed.push(k);
-    if(ph==='faceoff'||ph==='play'||ph==='steal'){
-      s.bank+=q.answers[k].p;setFx(s,'correct');
-      if(ph==='steal'){s.winner=s.stealQueue[0];s.phase='award'}
-      else if(s.revealed.length>=q.answers.length){s.winner=ph==='play'?s.control:null;s.phase='award'}
-    }
+    const q=s.questions[s.round];
+    if(s.phase!=='play'||!q||!q.answers[k]||s.revealed.indexOf(k)>-1)return;
+    const pts=(+q.answers[k].p||0)*q.mult;
+    s.revealed.push(k);s.owner[k]=s.turn;
+    s.families[s.turn].score+=pts;s.rp[s.turn]+=pts;setFx(s,'correct');
+    if(s.revealed.length>=q.answers.length){finish(s);setFx(s,'award')}
   },
   wrong(s){
-    const ph=s.phase;
-    if(ph==='faceoff'){setFx(s,'strike',1)}
-    else if(ph==='play'){
-      s.strikes++;setFx(s,'strike',s.strikes);
-      if(s.strikes>=3){s.phase='steal';s.stealQueue=others(s.control)}
-    }else if(ph==='steal'){
-      setFx(s,'strike',1);s.stealQueue.shift();
-      if(!s.stealQueue.length){s.winner=s.control;s.phase='award'}
-    }
+    if(s.phase!=='play')return;
+    s.struck[s.turn]=true;setFx(s,'strike',1);
+    const n=nextTurn(s);if(n==null)finish(s);else s.turn=n;
   },
-  award(s,i){if(s.phase!=='award')return;s.families[i].score+=bankOf(s);s.awarded=i;s.phase='done';setFx(s,'award')},
+  endRound(s){if(s.phase==='play')finish(s)},
+  revealRest(s){
+    if(s.phase!=='done')return;
+    const q=s.questions[s.round];let any=false;
+    q.answers.forEach((a,k)=>{if(s.revealed.indexOf(k)<0){s.revealed.push(k);s.missed.push(k);any=true}});
+    if(any)setFx(s,'reveal');
+  },
   next(s){
     if(s.phase!=='done')return;
     if(s.round+1>=s.questions.length){s.phase='final'}else{s.round++;resetRound(s)}
@@ -357,41 +380,54 @@ function topbar(){
     '<div class="acts"><button class="btn ghost" data-a="undo"'+(HIST.length?'':' disabled')+'>'+ico('undo')+'تراجع</button>'+
     '<button class="btn primary" data-a="display">'+ico('screen')+'شاشة العرض</button></div></header>';
 }
+function playerLine(){
+  return [0,1,2].map(i=>{
+    const st=S.struck[i],now=S.phase==='play'&&S.turn===i;
+    return '<span class="fs '+(st?'out':now?'now':'')+'" style="--c:'+FAM[i]+'"><i></i>'+esc(S.families[i].name)+' · '+(st?'أخطأت':now?'دورها الآن':'تنتظر')+'</span>';
+  }).join('');
+}
 function phasePanel(){
-  const q=Q(),m=q.mult,n=S.round+1,F=S.families;
+  const n=S.round+1,F=S.families;
   switch(S.phase){
-  case 'ready':return '<div class="ph"><h3>الجولة '+n+' جاهزة</h3><p>اقرأ السؤال على الحضور، ثم ابدأ المواجهة بين ممثلي العائلات الثلاث.</p><div><button class="btn primary" data-a="start">بدء المواجهة</button></div></div>';
-  case 'faceoff':return '<div class="ph"><h3>المواجهة</h3><p>يضغط ممثلو العائلات الثلاث الجرس، ويجيب الأسرع أولاً. اكشف الإجابات الصحيحة، وإن أخطأ المتسابق اضغط «خطأ» ليجيب التالي. ثم اختر العائلة التي ربحت حق اللعب.</p><div class="fbtns">'+[0,1,2].map(i=>famBtn(i,'control')).join('')+'</div></div>';
-  case 'play':return '<div class="ph"><h3>اللعب لدى '+esc(F[S.control].name)+'</h3><p>اكشف كل إجابة صحيحة بالضغط عليها. ثلاثة أخطاء تفتح فرصة السرقة للعائلتين الأخريين بالتتابع.</p><div class="dots">'+[0,1,2].map(i=>'<i class="'+(i<S.strikes?'hit':'')+'">'+ico('x')+'</i>').join('')+'</div></div>';
-  case 'steal':{const st=S.stealQueue[0],last=S.stealQueue.length===1;
-    return '<div class="ph"><h3>فرصة السرقة: '+esc(F[st].name)+'</h3><p>إجابة واحدة فقط. إن كانت صحيحة تأخذ العائلة رصيد الجولة كاملاً، وإن أخطأت '+(last?'يعود الرصيد إلى '+esc(F[S.control].name)+'.':'تنتقل الفرصة إلى '+esc(F[S.stealQueue[1]].name)+'.')+'</p></div>'}
-  case 'award':return '<div class="ph"><h3>منح '+bankOf(S)+' نقطة</h3><p>'+(S.winner==null?'اختر العائلة الفائزة بالجولة.':'العائلة المقترحة مظللة. يمكنك اختيار غيرها.')+'</p><div class="fbtns">'+[0,1,2].map(i=>famBtn(i,'award',S.winner===i?'sug':'')).join('')+'</div></div>';
-  case 'done':{const last=S.round+1>=S.questions.length;
-    return '<div class="ph"><h3>مُنحت '+bankOf(S)+' نقطة إلى '+esc(F[S.awarded].name)+'</h3><p>يمكنك كشف بقية الإجابات للحضور قبل المتابعة.</p><div><button class="btn primary" data-a="next">'+(last?'عرض النتيجة النهائية':'الجولة التالية')+'</button></div></div>'}
+  case 'ready':{const sug=S.round%3;
+    return '<div class="ph"><h3>الجولة '+n+' جاهزة</h3><p>اقرأ السؤال، ثم اختر العائلة التي تبدأ. تجيب كل عائلة حتى تخطئ مرة واحدة فينتقل الدور إلى التالية، ونقاط كل إجابة صحيحة تذهب إلى العائلة التي أجابت.</p><div class="fbtns">'+[0,1,2].map(i=>famBtn(i,'start',i===sug?'sug':'')).join('')+'</div><div class="hint">المقترح لهذه الجولة: '+esc(F[sug].name)+'. يتبدّل البدء بين العائلات من جولة لأخرى.</div></div>'}
+  case 'play':
+    return '<div class="ph"><h3>الدور لدى '+esc(F[S.turn].name)+'</h3><p>اضغط على الإجابة التي ذكرتها العائلة لتُضاف نقاطها إليها. إن أخطأت اضغط «إجابة خاطئة»، فيظهر لها خطأ واحد وينتقل الدور.</p><div class="fstates">'+playerLine()+'</div><div><button class="btn ghost" data-a="endRound">إنهاء الجولة الآن</button></div></div>';
+  case 'done':{const last=S.round+1>=S.questions.length,q=Q(),rest=q.answers.length-S.revealed.length;
+    return '<div class="ph"><h3>انتهت الجولة</h3><p>نقاط هذه الجولة: '+[0,1,2].map(i=>esc(F[i].name)+' +'+S.rp[i]).join(' · ')+'</p><div class="fbtns">'+
+      '<button class="btn" data-a="revealRest"'+(rest?'':' disabled')+'>كشف الإجابات المتبقية'+(rest?' ('+rest+')':'')+'</button>'+
+      '<button class="btn primary" data-a="next">'+(last?'عرض النتيجة النهائية':'الجولة التالية')+'</button></div></div>'}
   case 'final':return '<div class="ph"><h3>انتهت الفعالية</h3><p>النتيجة النهائية معروضة على الشاشة. للعودة إلى جولة سابقة اختر رقمها من الأعلى.</p></div>';
   }
   return '';
 }
+function famTag(i){
+  const t=[];
+  if(S.phase==='play'&&S.turn===i)t.push('دورها الآن');
+  else if(S.struck[i]&&S.phase!=='ready')t.push('أخطأت');
+  if(S.rp[i])t.push('+'+S.rp[i]+' في الجولة');
+  return t.join(' · ');
+}
 function famCards(){
   return S.families.map((f,i)=>{
-    const ctl=S.control===i&&['play','steal','award'].indexOf(S.phase)>-1,st=S.phase==='steal'&&S.stealQueue[0]===i;
-    const ch=PS&&PS[i]!==f.score;
-    return '<div class="fam '+(ctl?'ctl ':'')+(ch?'pulse':'')+'" style="--c:'+FAM[i]+'"><div class="fam-name">'+esc(f.name)+'</div><div class="fam-score">'+f.score+'</div><div class="fam-tag">'+(st?'دورها في السرقة':ctl?'تتحكم باللعب':'')+'</div><div class="fam-adj"><button class="btn sm ghost" data-a="adj" data-i="'+i+'" data-d="-10">−10</button><button class="btn sm ghost" data-a="adj" data-i="'+i+'" data-d="10">+10</button></div></div>';
+    const ctl=S.phase==='play'&&S.turn===i,ch=PS&&PS[i]!==f.score;
+    return '<div class="fam '+(ctl?'ctl ':'')+(ch?'pulse':'')+'" style="--c:'+FAM[i]+'"><div class="fam-name">'+esc(f.name)+'</div><div class="fam-score">'+f.score+'</div><div class="fam-tag">'+famTag(i)+'</div><div class="fam-adj"><button class="btn sm ghost" data-a="adj" data-i="'+i+'" data-d="-10">−10</button><button class="btn sm ghost" data-a="adj" data-i="'+i+'" data-d="10">+10</button></div></div>';
   }).join('');
 }
 function hostView(){
-  const q=Q(),ph=S.phase,live=['faceoff','play','steal'].indexOf(ph)>-1,canReveal=ph!=='ready'&&ph!=='final';
+  const q=Q(),ph=S.phase,live=ph==='play';
   const chips=S.questions.map((x,i)=>'<button class="chip '+(i===S.round?'on':(i<S.round?'played':''))+'" data-a="jump" data-i="'+i+'">'+(i+1)+(x.mult>1?' <b>×'+x.mult+'</b>':'')+'</button>').join('');
   const rows=q.answers.map((a,k)=>{
-    const on=S.revealed.indexOf(k)>-1;
-    return '<button class="arow" data-a="reveal" data-k="'+k+'"'+(on?' data-on':'')+(canReveal?'':' disabled')+'><span class="n">'+(k+1)+'</span><span>'+esc(a.t||'—')+'</span><span class="p">'+a.p+'</span><span class="s">'+(on?'ظاهرة':'')+'</span></button>';
+    const on=S.revealed.indexOf(k)>-1,miss=S.missed.indexOf(k)>-1,own=S.owner[k];
+    const tag=miss?'لم تُذكر':(own!=null?S.families[own].name:'');
+    return '<button class="arow'+(miss?' miss':'')+'" data-a="reveal" data-k="'+k+'"'+(on?' data-on':'')+(own!=null&&!miss?' style="--c:'+FAM[own]+'"':'')+(live&&!on?'':' disabled')+'><span class="n">'+(k+1)+'</span><span>'+esc(a.t||'—')+'</span><span class="p">'+a.p+'</span><span class="s">'+esc(tag)+'</span></button>';
   }).join('');
   return '<div class="hgrid"><section class="main">'+
     '<div class="chips" aria-label="الجولات">'+chips+'</div>'+
     '<div class="qbox"><small><span>الجولة '+(S.round+1)+' من '+S.questions.length+'</span>'+(q.mult>1?'<span>النقاط ×'+q.mult+'</span>':'')+'</small><h2>'+esc(q.text)+'</h2></div>'+
     phasePanel()+
     '<div class="alist">'+rows+'</div>'+
-    '<div class="bankline"><div><span>رصيد الجولة</span> <div class="v">'+S.bank+(q.mult>1?' × '+q.mult+' = '+bankOf(S):'')+'</div></div>'+
+    '<div class="bankline"><div class="fstates">'+playerLine()+'</div>'+
     '<button class="btn bad" data-a="wrong"'+(live?'':' disabled')+'>'+ico('x')+'إجابة خاطئة</button></div>'+
     '<div class="hint">اختصارات: الأرقام 1–8 لكشف إجابة، <code class="k">X</code> خطأ، <code class="k">Z</code> تراجع.</div>'+
     '</section><aside class="side">'+famCards()+'</aside></div>';
@@ -403,25 +439,23 @@ function displayView(){
   const rows=Math.ceil(q.answers.length/2);
   const cards=q.answers.map((a,k)=>{
     if(S.revealed.indexOf(k)<0)return '<div class="card"><span class="cnum">'+(k+1)+'</span></div>';
-    return '<div class="card on '+(fr.indexOf(k)>-1?'fresh':'')+'"><span class="cn">'+(k+1)+'</span><span class="ct">'+esc(a.t)+'</span><span class="cp">'+a.p+'</span></div>';
+    const miss=S.missed.indexOf(k)>-1,own=S.owner[k];
+    return '<div class="card on '+(miss?'miss ':'')+(fr.indexOf(k)>-1?'fresh':'')+'"'+(own!=null&&!miss?' style="--c:'+FAM[own]+'"':'')+'><span class="cn">'+(k+1)+'</span><span class="ct">'+esc(a.t)+'</span><span class="cp">'+a.p+'</span></div>';
   }).join('');
   let status='';
-  if(ph==='play')status='الدور لدى '+F[S.control].name;
-  else if(ph==='steal')status='فرصة السرقة: '+F[S.stealQueue[0]].name;
-  else if(ph==='faceoff')status='المواجهة: من يسبق بالجرس؟';
-  else if(ph==='award')status=S.winner==null?'':'الرصيد يذهب إلى '+F[S.winner].name;
-  else if(ph==='done')status=F[S.awarded].name+' تربح '+bankOf(S)+' نقطة';
+  if(ph==='play')status='الدور لدى '+F[S.turn].name;
+  else if(ph==='done')status='انتهت الجولة';
   const tiles=F.map((f,i)=>{
-    const ctl=S.control===i&&['play','steal','award'].indexOf(ph)>-1,st=ph==='steal'&&S.stealQueue[0]===i,ch=PS&&PS[i]!==f.score;
-    return '<div class="tile '+(ctl?'ctl ':'')+(st?'steal ':'')+(ch?'pulse':'')+'" style="--c:'+FAM[i]+'"><span class="nm">'+esc(f.name)+'</span><b>'+f.score+'</b><span class="tg">'+(st?'فرصة السرقة':ctl?'يتحكّم':'')+'</span></div>';
+    const ctl=ph==='play'&&S.turn===i,out=S.struck[i]&&ph!=='ready',ch=PS&&PS[i]!==f.score;
+    const tg=(out?ico('x')+' أخطأت':ctl?'الدور الآن':'')+(S.rp[i]?(out||ctl?' · ':'')+'+'+S.rp[i]+' في الجولة':'');
+    return '<div class="tile '+(ctl?'ctl ':'')+(out?'struck ':'')+(ch?'pulse':'')+'" style="--c:'+FAM[i]+'"><span class="nm">'+esc(f.name)+'</span><b>'+f.score+'</b><span class="tg">'+tg+'</span></div>';
   }).join('');
   const dock=IS_DISPLAY?'<div class="dock"><button class="btn sm" data-a="fs" aria-label="ملء الشاشة">'+ico('full')+'</button></div>'
     :'<div class="dock"><button class="btn sm" data-a="back">'+ico('back')+'اللوحة</button><button class="btn sm bad" data-a="wrong">'+ico('x')+'خطأ</button><button class="btn sm" data-a="undo"'+(HIST.length?'':' disabled')+'>'+ico('undo')+'</button><button class="btn sm" data-a="fs" aria-label="ملء الشاشة">'+ico('full')+'</button></div>';
   return '<div class="board"><header class="dh"><div class="brand"><img class="logo" src="'+LOGO+'" alt=""><div><div class="bt">'+esc(S.title)+'</div></div></div><div class="rnd"><span>الجولة '+(S.round+1)+' / '+S.questions.length+'</span>'+(q.mult>1?'<b>نقاط ×'+q.mult+'</b>':'')+'</div></header>'+
-    '<div class="mid">'+(ph==='ready'?'<div class="qbar waiting"><span>الجولة '+(S.round+1)+'</span><em>استعدّوا...</em></div>':'<div class="qbar">'+esc(q.text)+'</div>')+
-    '<div class="bankbox"><span>رصيد الجولة</span><b>'+bankOf(S)+'</b></div></div>'+
+    '<div class="mid">'+(ph==='ready'?'<div class="qbar waiting"><span>الجولة '+(S.round+1)+'</span><em>استعدّوا...</em></div>':'<div class="qbar">'+esc(q.text)+'</div>')+'</div>'+
     '<div class="cards" style="grid-template-rows:repeat('+rows+',minmax(0,1fr))">'+cards+'</div>'+
-    '<div><div class="status">'+esc(status)+'</div><div class="strikes">'+[0,1,2].map(i=>'<i class="'+(i<S.strikes?'hit':'')+'">'+ico('x')+'</i>').join('')+'</div></div>'+
+    '<div class="status">'+esc(status)+'</div>'+
     '<div class="tiles">'+tiles+'</div></div>'+dock;
 }
 function finalView(){
@@ -458,11 +492,12 @@ function settingsView(){
    '<label class="row" style="gap:10px"><input type="checkbox" id="ssnd" data-in="snd"'+(SOUND?' checked':'')+' style="width:auto"> المؤثرات الصوتية</label></div>'+
    '<div class="panel"><h2>شاشة العرض على جهاز ثانٍ</h2><p class="hint" style="margin:0">الزر «شاشة العرض» يملأ هذه النافذة باللوحة. لعرض اللوحة على الشاشة الكبيرة وإبقاء لوحة التحكم أمامك: افتح رابط الفعالية نفسه في نافذة ثانية وأضف <code class="k">#display</code> في آخره، وانقلها إلى شاشة العرض واضغط <code class="k">F</code> لملء الشاشة. النافذتان تتزامنان تلقائياً داخل المتصفح نفسه على الجهاز نفسه.</p></div>'+
    '<div class="panel"><h2>قواعد اللعب بثلاث عائلات</h2><ol class="rules">'+
-   '<li><b>المواجهة:</b> يضغط ممثلو العائلات الثلاث الجرس. الأسرع يجيب أولاً، وإن أخطأ ينتقل الدور للتالي. العائلة صاحبة أعلى إجابة تقرّر اللعب.</li>'+
-   '<li><b>اللعب:</b> تعطي العائلة المتحكمة إجابة واحدة لكل متسابق بالتتابع. كل إجابة صحيحة تُكشف وتُضاف إلى رصيد الجولة.</li>'+
-   '<li><b>الأخطاء:</b> ثلاثة أخطاء تُنهي دور العائلة وتفتح فرصة السرقة.</li>'+
-   '<li><b>السرقة:</b> تُعطى العائلتان الأخريان فرصة واحدة بالتتابع. من تصيب تأخذ الرصيد كاملاً، وإن أخطأت الاثنتان يعود الرصيد للعائلة الأولى.</li>'+
-   '<li><b>المضاعفة:</b> في جولات ×2 و×3 يُضرب الرصيد عند منح النقاط.</li>'+
+   '<li><b>البداية:</b> يختار المقدّم العائلة التي تبدأ، ويتبدّل المقترح بين العائلات من جولة لأخرى.</li>'+
+   '<li><b>الإجابة:</b> تجيب العائلة التي عليها الدور. كل إجابة صحيحة تُكشف وتُضاف نقاطها مباشرة إلى رصيد هذه العائلة، ولا تُؤخذ منها.</li>'+
+   '<li><b>الخطأ:</b> لكل عائلة خطأ واحد في الجولة. عند الخطأ يظهر لها X وينتقل الدور إلى العائلة التالية التي لم تخطئ بعد.</li>'+
+   '<li><b>نهاية الجولة:</b> تنتهي عندما تخطئ العائلات الثلاث، أو عندما تُكشف كل الإجابات، أو بزر «إنهاء الجولة الآن».</li>'+
+   '<li><b>الإجابات المتبقية:</b> بعد انتهاء الجولة يكشف المقدّم الإجابات التي لم تذكرها أي عائلة، وتظهر باهتة بلا نقاط لأحد.</li>'+
+   '<li><b>المضاعفة:</b> في الجولة ذات مضاعف ×2 أو ×3 تُضرب نقاط كل إجابة صحيحة.</li>'+
    '<li><b>النهاية:</b> تفوز العائلة الأعلى نقاطاً، وتظهر رسالة تعادل عند تساوي القمة.</li></ol></div>'+
    '<div class="panel"><h2>لعبة جديدة</h2><p class="hint" style="margin:0">يصفّر نقاط العائلات ويعود إلى الجولة الأولى. الأسئلة والأسماء تبقى كما هي.</p><div><button class="btn '+(ARM==='reset'?'armed':'')+'" data-a="reset">'+(ARM==='reset'?'اضغط مرة أخرى للتأكيد':'تصفير اللعبة')+'</button></div></div></div>';
 }
@@ -489,11 +524,11 @@ $app.addEventListener('click',e=>{
   case 'back':view='host';render();break;
   case 'undo':undo();break;
   case 'fs':toggleFs();break;
-  case 'start':commit(ACT.start);break;
-  case 'control':commit(s=>ACT.control(s,i));break;
+  case 'start':commit(s=>ACT.start(s,i));break;
   case 'reveal':commit(s=>ACT.reveal(s,k));break;
   case 'wrong':commit(ACT.wrong);break;
-  case 'award':commit(s=>ACT.award(s,i));break;
+  case 'endRound':commit(ACT.endRound);break;
+  case 'revealRest':commit(ACT.revealRest);break;
   case 'next':commit(ACT.next);break;
   case 'jump':commit(s=>ACT.jump(s,i));break;
   case 'adj':commit(s=>ACT.adj(s,i,+t.dataset.d));break;
